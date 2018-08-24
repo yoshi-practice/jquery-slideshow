@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery_Sample</title>
+
+</head>
+
+<body>
+    <h1>jQueryを使ったスライドショー</h1>
+    <div id="carouselWrap">
+        <p id="carouselPrev"><img src="images/btn_prev.png" alt="前へ" /></p>
+        <p id="carouselNext"><img src="images/btn_next.png" alt="次へ" /></p>
+        <div id="carouse">
+            <div id="carouselInner">
+                <ul class="column">
+                    <li><a href="#"><img src="images/photo1_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/photo2_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/photo3_thum.jpg" alt="" /></a></li>
+                </ul>
+                <ul class="column">
+                    <li><a href="#"><img src="./images/photo4_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="./images/photo5_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="./images/photo6_thum.jpg" alt="" /></a></li>
+                </ul>
+                <ul class="column">
+                    <li><a href="#"><img src="./images/photo7_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="./images/photo8_thum.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="./images/photo9_thum.jpg" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    h1{
+        text-align: center;
+        margin: 5vw auto;
+    }
+    #carouselWrap {
+        margin: 20px auto;
+        width: 450px;
+        height: 150px;
+        padding: 5px;
+        border: 1px solid #DBDBDB;
+        position: relative;
+    }
+
+    #carouselPrev {
+        position: absolute;
+        top: 55px;
+        left: -15px;
+        cursor: pointer;
+    }
+
+    #carouselNext {
+        position: absolute;
+        top: 55px;
+        right: -15px;
+        cursor: pointer;
+    }
+
+    #carouse {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #carouselInner ul.column {
+        width: 450px;
+        height: 150px;
+        padding: 15px 0 15px 15px;
+        list-style-type: none;
+        float: left;
+    }
+
+    #carouselInner ul.column li {
+        float: left;
+        margin-right: 10px;
+        display: inline;
+    }
+
+    #carouselInner ul.column li img {
+        border: none;
+    }
+
+</style>
+
+<script>
+    $(function() {
+        $("#carouselInner").css("width", 475 * $("#carouselInner ul.column").size() + "px");
+        $("#carouselInner ul.column:last").prependTo("#carouselInner");
+        $("#carouselInner").css("margin-left", "-475px");
+        $("#carouselPrev").click(function() {
+            $("#carouselNext,#carouselPrev").hide();
+            $("#carouselInner").animate({
+                    marginLeft: parseInt($("#carouselInner").css("margin-left")) + 475 + "px"
+                }, "normal", "swing",
+                function() {
+                    $("#carouselInner").css("margin-left", "-475px");
+                    $("#carouselInner ul.column:last").prependTo("#carouselInner");
+                    $("#carouselNext,#carouselPrev").show();
+                });
+        });
+        $("#carouselNext").click(function() {
+            $("#carouselNext,#carouselPrev").hide();
+            $("#carouselInner").animate({
+                    marginLeft: parseInt($("#carouselInner").css("margin-left")) - 475 + "px"
+                }, "normal", "swing",
+                function() {
+                    $("#carouselInner").css("margin-left", "-475px");
+                    $("#carouselInner ul.column:first").appendTo("#carouselInner");
+                    $("#carouselNext,#carouselPrev").show();
+                });
+        });
+    });
+
+</script>
